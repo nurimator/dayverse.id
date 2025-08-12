@@ -2,496 +2,259 @@
 layout: null
 lang: id
 ---
-
-
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
-<script>
-  (function () {
-    // Jangan jalankan kalau sudah di path bahasa
-    if (window.location.pathname.startsWith('/id/') || window.location.pathname.startsWith('/en/')) return;
-
-    // Cek apakah user pernah pilih bahasa sebelumnya (disimpan di localStorage)
-    const savedLang = localStorage.getItem('preferredLang');
-    if (savedLang === 'id') {
-      window.location.replace('/id/');
-      return;
-    } else if (savedLang === 'en') {
-      window.location.replace('/en/');
-      return;
-    }
-
-    // Kalau belum pernah pilih, deteksi dari bahasa browser
-    const browserLang = navigator.language || navigator.userLanguage;
-    if (browserLang.startsWith('id')) {
-      window.location.replace('/id/');
-    } else {
-      window.location.replace('/en/');
-    }
-  })();
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | strip_newlines }}{% else %}{{ site.description | strip_html | strip_newlines }}{% endif %}">
-    <title>Nurimator | Animator & Designer</title>
-    {% include favicon.html %}
-    <!-- Preconnect untuk percepat koneksi ke CDN -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
-
-    <!-- Tailwind CSS CDN -->
+    <title>dayverse.id | Didorong oleh Rasa Ingin Tahu</title>
+    <!-- Import Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-      <!-- Optimasi Google Fonts -->
+    <!-- Import Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
-    </noscript>    
-<style>
-    body { font-family: 'Inter', sans-serif; background-color: #111827; color: #d1d5db; overflow-x: hidden; }
-    
-    @keyframes scroll-left {
-        from {
-            transform: translateY(-50%) translateX(0);
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Use Inter as the default font */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            background-color: #111827; /* bg-gray-900 */
+            color: #d1d5db; /* text-gray-300 */
         }
-        to {
-            transform: translateY(-50%) translateX(-50%);
+
+        /* Styling for the full-page canvas background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 0;
         }
-    }
 
-    .hero-bg-layer {
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-        pointer-events: none;
-        contain: strict; /* isolate paints */
-    }
-
-    /* Move the "background" on a pseudo-element with transform (composited) */
-    .hero-bg-layer::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 0;
-        
-        /* Mengatur dimensi gambar dengan aspek ratio 16:9 */
-        height: 130vh;
-        width: calc(130vh * 16 / 9 * 2);
-        
-        /* Gunakan auto untuk lebar agar aspek ratio terjaga */
-        background-size: auto 100%;
-        background-repeat: repeat-x;
-        
-        will-change: transform;
-        backface-visibility: hidden;
-        
-        /* Menggeser elemen ke atas sebesar setengah tingginya */
-        transform: translateY(-50%);
-        
-        animation: scroll-left var(--scroll-duration, 60s) linear infinite;
-    }
-
-    /* Layer 1 - Background yang bergerak lambat */
-    .hero-bg-layer-1::before { 
-        opacity: 0.3; 
-        z-index: 1;
-        --scroll-duration: 60s;
-        background-image: url('/assets/image/hero-bg-back.webp');
-    }
-    
-    /* Layer 2 - Background yang bergerak lebih cepat */
-    .hero-bg-layer-2::before { 
-        opacity: 0.5; 
-        z-index: 2;
-        --scroll-duration: 40s;
-        background-image: url('/assets/image/hero-bg-front.webp');
-    }
-
-    .hero-title {
-        font-size: clamp(2.5rem, 7vw, 4.5rem);
-        line-height: 1.1;
-    }
-    
-    /* Shimmer effect yang sama dengan search_page.js */
-    .shimmer {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, #1f2937 25%, #374151 50%, #1f2937 75%);
-        background-size: 200% 100%;
-        animation: shimmer 1.2s infinite linear;
-    }
-    @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-    }
-
-    .work-card { transform: translateZ(0); will-change: transform; }
-
-    .lazy-placeholder { animation: shimmer-light 1.5s ease-in-out infinite; }
-    @keyframes shimmer-light { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
-    .lazy-load { transition: opacity 0.3s ease; }
-
-    .line-clamp-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        .work-card { transition: none !important; animation: none !important; }
-        .lazy-placeholder { animation: none !important; background: #374151; }
-        .hero-bg-layer::before { animation: none !important; }
-    }
-</style>
-</head>
-<body class="bg-gray-900 text-gray-300">
-
-    {% include header.html %}
-
-    <main>
-        <!-- Wrapper for Hero and Works sections to contain blobs -->
-        <div class="relative overflow-hidden">
-            <!-- Background Blobs Global (sekarang statis) -->
-            <div class="absolute inset-0 z-0 opacity-20">
-                <div class="absolute top-0 left-0 w-96 h-96 lg:w-[600px] lg:h-[600px] bg-cyan-500 rounded-full filter blur-3xl"></div>
-                <div class="absolute top-1/3 right-0 w-96 h-96 lg:w-[700px] lg:h-[700px] bg-teal-500 rounded-full filter blur-3xl"></div>
-                <div class="absolute bottom-0 left-1/4 w-96 h-96 lg:w-[500px] lg:h-[500px] bg-emerald-600 rounded-full filter blur-3xl"></div>
-            </div>
-            
-            <!-- ===== Hero Section ===== -->
-            <section id="hero" class="relative z-10 min-h-screen flex items-center justify-center pt-28 pb-16 lg:pt-20">
-
-                <!-- Latar belakang gambar bergerak 2 lapis -->
-                <div class="absolute top-[-5vh] bottom-[-15vh] left-0 right-0 z-0 overflow-hidden">
-                    <div class="hero-bg-layer hero-bg-layer-1"></div>
-                    <div class="hero-bg-layer hero-bg-layer-2"></div>
-                </div>
-
-                <!-- Blob khusus Hero (sekarang statis) -->
-                <div class="absolute inset-0 z-10 pointer-events-none opacity-50">
-                    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-800 rounded-full filter blur-3xl"></div>
-                    <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyan-800 rounded-full filter blur-3xl"></div>
-                </div>
-
-                <!-- Container Konten Utama (Layer 3) -->
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center">
-                    <!-- Konten Teks -->
-                    <div class="max-w-4xl mx-auto">
-                        <h1 class="hero-title font-extrabold text-white mb-6">
-                            Selamat Datang di Ruang <span class="text-teal-400">Nurimator</span>.
-                        </h1>
-                        <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-200 mb-10">
-                            Sumber informasi tentang animasi, teknologi, dan eksplorasi digital lainnya. Dirancang agar mudah dipahami dan siap digunakan dalam berbagai konteks kreatif.
-                        </p>
-                        <a href="/id/#karya" class="inline-block bg-teal-700 text-white font-bold py-3 px-8 rounded-lg text-base hover:bg-teal-600 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
-                            Lihat Karya
-                        </a>
-                    </div>
-                </div>
-            </section>
-
-            <!-- ===== Works Portfolio Section ===== -->
-            <section id="karya" class="relative z-10 pt-20 pb-10 sm:pt-28 sm:pb-14 bg-transparent">
-                <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center max-w-3xl mx-auto mb-16">
-                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 [text-shadow:0_2px_12px_rgba(0,0,0,0.6)]">Karya yang pernah saya buat</h2>
-                        <p class="text-gray-300 text-lg [text-shadow:0_1px_8px_rgba(0,0,0,0.7)]">Berikut adalah beberapa karya animasi dan model 3D yang telah saya ciptakan.</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {% for card in site.data.landing_id.karya limit:6 %}
-                        <!-- Work Card dengan optimasi -->
-                        <div class="group work-card relative bg-gray-800/80 rounded-2xl overflow-hidden border border-gray-700/80 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-teal-500/50 hover:shadow-2xl hover:shadow-teal-500/20">
-                            <div class="relative w-full h-56 overflow-hidden bg-gray-900">
-                                <!-- Shimmer placeholder yang sama dengan search_page.js -->
-                                <div class="shimmer"></div>
-                                <!-- Lazy loading dengan Intersection Observer -->
-                                <img
-                                    data-src="{{ card.gambar }}"
-                                    alt="{{ card.alt_gambar }}"
-                                    class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-500 z-10 lazy-load"
-                                    loading="lazy"
-                                    decoding="async"
-                                    onerror="this.src='https://placehold.co/600x400/111827/FFFFFF?text=Image+Not+Found';"
-                                >
-                            </div>
-                            <div class="p-6">
-                                <h3 class="text-xl font-bold text-white mb-2 transition-colors duration-300 group-hover:text-teal-400">{{ card.judul }}</h3>
-                                <p class="text-gray-400 mb-4 text-sm line-clamp-2">{{ card.deskripsi }}</p>
-                                <div class="flex flex-wrap gap-2">
-                                    {% for tag in card.tags limit:3 %}
-                                    <span class="{{ tag.kelas_bg }} {{ tag.kelas_text }} text-xs font-semibold px-2.5 py-1 rounded-full">{{ tag.nama }}</span>
-                                    {% endfor %}
-                                    {% if card.tags.size > 3 %}
-                                    <span class="bg-gray-600 text-gray-300 text-xs font-semibold px-2.5 py-1 rounded-full">+{{ card.tags.size | minus: 3 }}</span>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    
-                    <!-- Button dengan loading state -->
-                    <div class="text-center mt-10">
-                        <a href="/id/articles/" class="inline-block bg-teal-700 text-white font-semibold py-3 px-8 rounded-lg text-base hover:bg-teal-600 transition-all duration-300 transform hover:scale-105 shadow-md hover:shadow-lg">
-                            Lihat Postingan Lainnya
-                        </a>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <!-- ===== Community Section ===== -->
-        <section id="komunitas" class="py-20 sm:py-28" style="background-color: #18212f;">
-            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    <!-- Community Call to Action -->
-                    <div class="text-center lg:text-left">
-                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ikuti Perjalanan Saya</h2>
-                        <p class="text-gray-400 text-lg mb-8">Dukung saya untuk terus berkarya dan berbagi cerita melalui animasi. Ikuti media sosial saya dan jadilah bagian dari komunitas!</p>
-                        
-                        <!-- Social Media Buttons -->
-                        <div class="flex flex-row gap-4 justify-center lg:justify-start mb-8">
-                            <!-- Instagram -->
-                            <a href="https://www.instagram.com/nurimator" aria-label="Instagram"
-                                class="flex items-center justify-center p-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-300 shadow-lg">
-                                <svg fill="currentColor" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M160,128a32,32,0,1,1-32-32A32.03667,32.03667,0,0,1,160,128Zm68-44v88a56.06353,56.06353,0,0,1-56,56H84a56.06353,56.06353,0,0,1-56-56V84A56.06353,56.06353,0,0,1,84,28h88A56.06353,56.06353,0,0,1,228,84Zm-52,44a48,48,0,1,0-48,48A48.05436,48.05436,0,0,0,176,128Zm16-52a12,12,0,1,0-12,12A12,12,0,0,0,192,76Z"/>
-                                </svg>
-                            </a>
-
-                            <!-- YouTube -->
-                            <a href="https://www.youtube.com/nurimator" aria-label="YouTube"
-                                class="flex items-center justify-center p-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors duration-300 shadow-lg">
-                                <svg fill="currentColor" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M234.33057,69.79736a23.96369,23.96369,0,0,0-14.50489-16.34619C185.55615,40.28223,130.97949,40.39209,128,40.40771c-2.978-.02392-57.55518-.126-91.8252,13.04346A23.96415,23.96415,0,0,0,21.66992,69.79639C19.083,79.72705,16,97.88574,16,128c0,30.11377,3.083,48.27246,5.66943,58.20264a23.96369,23.96369,0,0,0,14.50489,16.34619c32.80615,12.60693,84.22168,13.04541,91.167,13.04541.6206.00049.69678.00049,1.31738,0,6.95069-.00049,58.36231-.43945,91.16651-13.04541a23.96415,23.96415,0,0,0,14.50488-16.34522C236.917,176.273,240,158.11426,240,128,240,97.88623,236.917,79.72754,234.33057,69.79736Zm-72.11182,61.53076-48,32A3.99967,3.99967,0,0,1,108,160V96a3.99968,3.99968,0,0,1,6.21875-3.32813l48,32a3.99979,3.99979,0,0,1,0,6.65625Z"/>
-                                </svg>
-                            </a>
-
-                            <!-- TikTok -->
-                            <a href="https://www.tiktok.com/nurimator" aria-label="TikTok"
-                                class="flex items-center justify-center p-3 bg-black text-white rounded-lg hover:bg-gray-900 transition-colors duration-300 shadow-lg">
-                                <svg fill="currentColor" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M232,84v40a7.99977,7.99977,0,0,1-8,8,103.32406,103.32406,0,0,1-48.00049-11.70752L176,156A76,76,0,1,1,86.59766,81.17971,7.99952,7.99952,0,0,1,96,89.05569l-.00049,41.63916a7.99971,7.99971,0,0,1-4.56689,7.22607A20.00272,20.00272,0,1,0,120,156V28a7.99977,7.99977,0,0,1,8-8h40a7.99977,7.99977,0,0,1,8,8,48.05436,48.05436,0,0,0,48,48A7.99977,7.99977,0,0,1,232,84Z"/>
-                                </svg>
-                            </a>
-                        </div>
-                        <!-- [UPDATE] Donation Button diubah dari <button> menjadi <a> -->
-                        <a href="/id/donate" class="inline-block bg-teal-700 text-white font-bold py-4 px-10 rounded-lg text-lg hover:bg-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
-                            Donasi Sekarang
-                        </a>
-                    </div>
-
-                    <!-- Testimonials Slider -->
-                    <div id="testimonial-slider" class="relative w-full max-w-lg mx-auto min-w-0">
-                        <div class="overflow-hidden rounded-2xl bg-gray-800 border border-gray-700">
-                            <div id="slider-track" class="slider-track flex transition-transform duration-500 ease-in-out">
-                                {% for testimoni in site.data.landing_id.testimoni %}
-                                <!-- Testimonial Slide -->
-                                <div class="testimonial-slide w-full flex-shrink-0 p-8 sm:p-12">
-                                    <svg 
-                                        xmlns="http://www.w3.org/2000/svg" 
-                                        viewBox="0 0 349.078 349.078" 
-                                        class="w-10 h-10 text-teal-400 mb-4 fill-current" 
-                                        aria-hidden="true">
-                                        <g>
-                                        <path d="M198.779,322.441v-58.245c0-7.903,6.406-14.304,14.304-14.304c28.183,0,43.515-28.904,45.643-85.961h-45.643
-                                            c-7.897,0-14.304-6.41-14.304-14.304V26.64c0-7.9,6.406-14.301,14.304-14.301h121.69c7.896,0,14.305,6.408,14.305,14.301v122.988
-                                            c0,27.349-2.761,52.446-8.181,74.611c-5.568,22.722-14.115,42.587-25.398,59.049c-11.604,16.917-26.132,30.192-43.155,39.437
-                                            c-17.152,9.304-37.09,14.026-59.267,14.026C205.186,336.745,198.779,330.338,198.779,322.441z M14.301,249.887
-                                            C6.404,249.887,0,256.293,0,264.185v58.257c0,7.896,6.404,14.298,14.301,14.298c22.166,0,42.114-4.723,59.255-14.026
-                                            c17.032-9.244,31.558-22.508,43.161-39.437c11.29-16.462,19.836-36.328,25.404-59.061c5.423-22.165,8.178-47.263,8.178-74.6V26.628
-                                            c0-7.9-6.41-14.301-14.304-14.301H14.301C6.404,12.327,0,18.734,0,26.628v122.988c0,7.899,6.404,14.304,14.301,14.304h45.002
-                                            C57.201,220.982,42.09,249.887,14.301,249.887z"/>
-                                        </g>
-                                    </svg>
-                                    <p class="text-lg text-gray-300 mb-6">"{{ testimoni.kutipan }}"</p>
-                                    <div class="flex items-center">
-                                        <img src="{{ testimoni.foto }}" alt="Foto {{ testimoni.nama }}" class="w-12 h-12 rounded-full mr-4 border-2 border-teal-400" fetchpriority="low" onerror="this.onerror=null;this.src='https://placehold.co/48x48/1f2937/FFFFFF?text=AV';">
-                                        <div>
-                                            <h4 class="font-bold text-white">{{ testimoni.nama }}</h4>
-                                            <p class="text-sm text-gray-400">{{ testimoni.jabatan }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endfor %}
-                            </div>
-                        </div>
-                        <!-- Slider Controls -->
-                        <button id="prev-slide" aria-label="Mundurkan" class="absolute top-1/2 -translate-y-1/2 -left-4 bg-gray-700/50 hover:bg-gray-600/80 text-white p-3 rounded-lg backdrop-blur-sm transition-colors z-10 hidden sm:block">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7071 5.29289C16.0976 5.68342 16.0976 6.31658 15.7071 6.70711L10.4142 12L15.7071 17.2929C16.0976 17.6834 16.0976 18.3166 15.7071 18.7071C15.3165 19.0976 14.6834 19.0976 14.2929 18.7071L8.46963 12.8839C7.98148 12.3957 7.98148 11.6043 8.46963 11.1161L14.2929 5.29289C14.6834 4.90237 15.3165 4.90237 15.7071 5.29289Z"/>
-                            </svg>
-                        </button>
-                        <button id="next-slide" aria-label="Majukan" class="absolute top-1/2 -translate-y-1/2 -right-4 bg-gray-700/50 hover:bg-gray-600/80 text-white p-3 rounded-lg backdrop-blur-sm transition-colors z-10 hidden sm:block">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5">
-                                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.29289 5.29289C8.68342 4.90237 9.31658 4.90237 9.70711 5.29289L15.5303 11.1161C16.0185 11.6043 16.0185 12.3957 15.5303 12.8839L9.70711 18.7071C9.31658 19.0976 8.68342 19.0976 8.29289 18.7071C7.90237 18.3166 7.90237 17.6834 8.29289 17.2929L13.5858 12L8.29289 6.70711C7.90237 6.31658 7.90237 5.68342 8.29289 5.29289Z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    {% include footer.html %}
-    
-    <!-- Sertakan banner persetujuan cookie -->
-    {% include cookie-consent.html %}
-
+        /* Main content must be on top of the canvas */
+        main {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-        
-            // --- Lazy Loading untuk gambar ---
-            const lazyImages = document.querySelectorAll('.lazy-load');
-            
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            const placeholder = img.nextElementSibling;
-                            
-                            img.src = img.dataset.src;
-                            img.removeAttribute('data-src');
-                            
-                            img.onload = () => {
-                                img.style.opacity = '1';
-                                // Hapus shimmer setelah gambar loaded
-                                const shimmer = img.parentElement.querySelector('.shimmer');
-                                if (shimmer) {
-                                    shimmer.remove();
-                                }
-                            };
-                            
-                            observer.unobserve(img);
-                        }
-                    });
-                }, {
-                    rootMargin: '50px 0px',
-                    threshold: 0.1
-                });
-
-                lazyImages.forEach(img => imageObserver.observe(img));
-            } else {
-                // Fallback untuk browser lama
-                lazyImages.forEach(img => {
-                    img.src = img.dataset.src;
-                    img.style.opacity = '1';
-                });
-            }
-
-            // --- Testimonial Slider Logic (existing) ---
-            const slider = document.getElementById('testimonial-slider');
-            if (slider) {
-                const sliderTrack = slider.querySelector('#slider-track');
-                const prevButton = slider.querySelector('#prev-slide');
-                const nextButton = slider.querySelector('#next-slide');
-                const initialSlides = Array.from(sliderTrack.children);
-                const slideCount = initialSlides.length;
-                let currentIndex = 0;
-                let autoPlayInterval;
-
-                if (slideCount > 1) {
-                    // Clone slides for infinite loop effect
-                    initialSlides.forEach(slide => {
-                        const clone = slide.cloneNode(true);
-                        sliderTrack.appendChild(clone);
-                    });
-
-                    const updateSliderPosition = (withTransition = true) => {
-                        if (withTransition) {
-                            sliderTrack.style.transition = 'transform 0.5s ease-in-out';
-                        } else {
-                            sliderTrack.style.transition = 'none';
-                        }
-                        sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
-                    };
-
-                    const handleNext = () => {
-                        currentIndex++;
-                        updateSliderPosition();
-                    };
-
-                    const handlePrev = () => {
-                        if (currentIndex <= 0) {
-                            currentIndex = slideCount;
-                            updateSliderPosition(false);
-                        }
-                        // Use a timeout to allow the browser to apply the 'none' transition before changing back
-                        setTimeout(() => {
-                            currentIndex--;
-                            updateSliderPosition();
-                        }, 20);
-                    };
-                    
-                    const resetAutoPlay = () => {
-                        clearInterval(autoPlayInterval);
-                        autoPlayInterval = setInterval(handleNext, 5000);
-                    };
-
-                    sliderTrack.addEventListener('transitionend', () => {
-                        if (currentIndex >= slideCount) {
-                            currentIndex = 0;
-                            updateSliderPosition(false);
-                        }
-                    });
-
-                    nextButton.addEventListener('click', () => {
-                        handleNext();
-                        resetAutoPlay();
-                    });
-
-                    prevButton.addEventListener('click', () => {
-                        handlePrev();
-                        resetAutoPlay();
-                    });
-                    
-                    // Start auto-play
-                    resetAutoPlay();
-
-                    let startX = 0;
-                    let isSwiping = false;
-
-                    sliderTrack.addEventListener('touchstart', (e) => {
-                        startX = e.touches[0].clientX;
-                        isSwiping = true;
-                    }, { passive: true });
-
-                    sliderTrack.addEventListener('touchmove', (e) => {
-                        if (!isSwiping) return;
-                        const currentX = e.touches[0].clientX;
-                        const diff = currentX - startX;
-
-                        // Optional: Geser visual saat drag
-                        // sliderTrack.style.transform = `translateX(calc(-${currentIndex * 100}% + ${diff}px))`;
-                    }, { passive: true });
-
-                    sliderTrack.addEventListener('touchend', (e) => {
-                        isSwiping = false;
-                        const endX = e.changedTouches[0].clientX;
-                        const diff = endX - startX;
-
-                        if (Math.abs(diff) > 50) {
-                            if (diff > 0) {
-                                handlePrev();
-                            } else {
-                                handleNext();
-                            }
-                            resetAutoPlay();
-                        } else {
-                            // Reset posisi jika tidak cukup geseran
-                            updateSliderPosition();
-                        }
-                    });
+        // Custom configuration for Tailwind CSS
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        amber: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
+                        blue: { 500: '#3b82f6', 600: '#2563eb', 300: '#93c5fd', 400: '#60a5fa', 800: '#1e40af' },
+                        teal: { 500: '#14b8a6', 600: '#0d9488', 300: '#5eead4', 400: '#2dd4bf', 700: '#0f766e' },
+                        slate: { 500: '#64748b', 600: '#475569', 300: '#cbd5e1', 400: '#94a3b8', 700: '#334155' },
+                        gray: { '800/50': 'rgba(31, 41, 55, 0.5)'}
+                    }
                 }
             }
-    });
+        }
     </script>
-    <script src="/assets/js/global.js" defer></script>
+</head>
+<body class="bg-gray-900 text-gray-300 antialiased">
+
+    <!-- Canvas for the full-page animation -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Main Wrapper -->
+    <div class="min-h-screen">
+
+        <!-- Header / Navigation -->
+        {% include header.html %}
+
+        <!-- Main Content -->
+        <main>
+            <!-- Page 1: Hero Section (Visible on all screens) -->
+            <section class="h-screen w-full flex flex-col justify-center items-center relative text-center px-4">
+                <div>
+                    <h1 class="text-5xl sm:text-6xl md:text-8xl font-extrabold text-white leading-tight">
+                        dayverse<span class="text-amber-400">.id</span>
+                    </h1>
+                     <p class="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto mt-4">
+                        Dengan rasa ingin tahu sebagai landasan, Membuka ruang cipta keberagaman.
+                    </p>
+                     <!-- CTA Button -->
+                    <a href="#pillars" class="mt-8 inline-block px-8 py-3 bg-amber-400 text-gray-900 font-bold rounded-lg hover:bg-amber-500 transition-colors duration-300">
+                        Jelajahi
+                    </a>
+                </div>
+            </section>
+
+            <!-- Page 2 / Main Content Section -->
+            <section id="pillars" class="min-h-screen py-20 flex items-center bg-transparent relative">
+                <div class="container mx-auto px-6">
+                    
+                    <!-- Section Title -->
+                    <div class="text-center mb-12">
+                        <h2 class="text-4xl font-bold text-white">
+                            Jelajahi <span class="text-amber-400">ruang kami</span>
+                        </h2>
+                    </div>
+
+                    <!-- Grid for Pillar Cards -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8 items-start">
+                        
+                        <!-- Pillar Card 1: Nurimator (First on mobile) -->
+                        <div class="bg-gray-800/50 backdrop-blur-lg p-4 lg:p-8 rounded-xl flex flex-row items-center text-left lg:flex-col lg:text-center h-full transform hover:-translate-y-2 transition-all duration-300 border-2 border-teal-400/20 hover:border-teal-400 hover:shadow-[0_0_25px_-5px] hover:shadow-teal-400/30">
+                            <img src="https://placehold.co/128x128/0f766e/5eead4?text=N" alt="Nurimator Icon" class="w-16 h-16 lg:w-32 lg:h-32 rounded-full object-cover border-4 border-gray-700 mr-4 lg:mr-0 lg:mb-6 flex-shrink-0">
+                            <div class="flex-grow">
+                                <h3 class="text-xl lg:text-2xl font-bold text-teal-400 mb-1 lg:mb-3">Nurimator</h3>
+                                <p class="text-gray-400 text-xs lg:text-base">Sebuah studio kreatif untuk mengubah konsep menjadi karya visual.</p>
+                                <a href="#" class="mt-3 lg:mt-6 inline-block w-full sm:w-auto text-white bg-teal-700 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300 font-bold rounded-lg text-sm lg:text-base px-6 py-2 lg:px-8 lg:py-3 transition-all duration-300">
+                                    Kunjungi Nurimator
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Pillar Card 2: Urdzien (Second on mobile) -->
+                        <div class="bg-gray-800/50 backdrop-blur-lg p-4 lg:p-8 rounded-xl flex flex-row items-center text-left lg:flex-col lg:text-center h-full transform hover:-translate-y-2 transition-all duration-300 border-2 border-blue-400/20 hover:border-blue-400 hover:shadow-[0_0_25px_-5px] hover:shadow-blue-400/30">
+                            <img src="https://placehold.co/128x128/1e40af/93c5fd?text=U" alt="Urdzien Icon" class="w-16 h-16 lg:w-32 lg:h-32 rounded-full object-cover border-4 border-gray-700 mr-4 lg:mr-0 lg:mb-6 flex-shrink-0">
+                            <div class="flex-grow">
+                                <h3 class="text-xl lg:text-2xl font-bold text-blue-400 mb-1 lg:mb-3">Urdzien</h3>
+                                <p class="text-gray-400 text-xs lg:text-base">Sebuah pilar untuk studi ilmiah dan filosofis untuk merangsang pemikiran.</p>
+                                <a href="#" class="mt-3 lg:mt-6 inline-block w-full sm:w-auto text-white bg-blue-800 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-sm lg:text-base px-6 py-2 lg:px-8 lg:py-3 transition-all duration-300">
+                                    Jelajahi Urdzien
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <!-- Pillar Card 3: Technology (Third on mobile) -->
+                        <div class="bg-gray-800/50 backdrop-blur-lg p-4 lg:p-8 rounded-xl flex flex-row items-center text-left lg:flex-col lg:text-center h-full transform hover:-translate-y-2 transition-all duration-300 border-2 border-slate-400/20 hover:border-slate-400 hover:shadow-[0_0_25px_-5px] hover:shadow-slate-400/30">
+                             <img src="https://placehold.co/128x128/334155/cbd5e1?text=T" alt="Technology Icon" class="w-16 h-16 lg:w-32 lg:h-32 rounded-full object-cover border-4 border-gray-700 mr-4 lg:mr-0 lg:mb-6 flex-shrink-0">
+                             <div class="flex-grow">
+                                <h3 class="text-xl lg:text-2xl font-bold text-slate-400 mb-1 lg:mb-3">Teknologi & Aplikasi</h3>
+                                <p class="text-gray-400 text-xs lg:text-base">Fokus pada pembuatan aplikasi web dan solusi praktis.</p>
+                                <a href="#" class="mt-3 lg:mt-6 inline-block w-full sm:w-auto text-white bg-slate-700 hover:bg-slate-600 focus:ring-4 focus:ring-slate-300 font-bold rounded-lg text-sm lg:text-base px-6 py-2 lg:px-8 lg:py-3 transition-all duration-300">
+                                    Lihat Aplikasi
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        {% include footer.html %}
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles, staticBlob;
+
+        const config = {
+            particleCount: 100,
+            particleSpeed: 0.5,
+            lineDistance: 120, 
+        };
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * config.particleSpeed;
+                this.vy = (Math.random() - 0.5) * config.particleSpeed;
+                
+                // Dynamically adjust particle radius based on screen width
+                this.radius = Math.max(0.4, (Math.random() * 1.5 + 0.5) * (width / 1920));
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(209, 213, 219, 0.8)'; // gray-300
+                ctx.fill();
+            }
+        }
+        
+        function setup() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            
+            // Dynamically adjust lineDistance based on the new formula
+            config.lineDistance = Math.sqrt((width * height) / 50);
+
+            particles = [];
+            for (let i = 0; i < config.particleCount; i++) {
+                particles.push(new Particle());
+            }
+            
+            staticBlob = {
+                x: width / 2,
+                y: height / 2,
+                size: 250,
+                color: 'rgba(251, 191, 36, 0.1)' // Amber, softer
+            };
+        }
+
+        function drawConnections() {
+            // Dynamically adjust line width based on screen width
+            ctx.lineWidth = Math.max(0.1, 0.5 * (width / 1920));
+            
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < config.lineDistance) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(209, 213, 219, ${1 - distance / config.lineDistance})`;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            const scrollY = window.scrollY;
+
+            if (scrollY < height / 2) {
+                const opacity = 1 - (scrollY / (height / 2));
+                ctx.save();
+                ctx.fillStyle = staticBlob.color.replace(/[\d\.]+\)$/g, `${0.1 * opacity})`);
+                ctx.beginPath();
+                ctx.arc(staticBlob.x, staticBlob.y, staticBlob.size, 0, Math.PI * 2);
+                ctx.filter = `blur(${staticBlob.size / 3}px)`;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            drawConnections();
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', setup);
+        setup();
+        animate();
+
+    </script>
 </body>
 </html>
