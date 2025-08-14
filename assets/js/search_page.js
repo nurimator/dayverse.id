@@ -491,11 +491,11 @@ document.addEventListener('DOMContentLoaded', function () {
       const newPath = window.location.pathname.replace(`/${currentLang}/`, `/${otherLang}/`);
       const alternateUrl = newPath + window.location.search;
       
-  const areFiltersActive = !selectedCategories.has('all');
+  const areFiltersActive = !selectedCategories.has('articles');
       
       let clearFilterHTML = '';
       if (areFiltersActive) {
-        const clearFilterBasePath = `/${currentLang}/all/`;
+        const clearFilterBasePath = `/${currentLang}/articles/`;
         const clearFilterUrl = searchQuery ? `${clearFilterBasePath}?q=${encodeURIComponent(searchQuery)}` : clearFilterBasePath;
         clearFilterHTML = `
           <p class="text-sm text-gray-400">

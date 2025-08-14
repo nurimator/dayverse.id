@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update data subdomain menu dengan dukungan multi-bahasa
     const subdomainMenuItems = [
         { 
-            href: '#', 
+            href: function(lang) { return `/${lang}/`; }, 
             text: 'dayverse.id', 
             description: {
                 id: 'Situs utama',
@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
             subdomain: 'main'
         },
         { 
-            href: '#', 
+            href: function(lang) { return `https://u.dayverse.id/${lang}`; }, 
             text: 'u.dayverse.id', 
             description: {
                 id: 'Urdzien - Gagasan & Keilmuan',
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
             subdomain: 'urdzien'
         },
         { 
-            href: '#', 
+            href: function(lang) { return `https://n.dayverse.id/${lang}`; }, 
             text: 'n.dayverse.id', 
             description: {
                 id: 'Nurimator - Animasi & desain',
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
             subdomain: 'nurimator'
         },
         { 
-            href: '#', 
+            href: function(lang) { return `https://app.dayverse.id/${lang}`; }, 
             text: 'app.dayverse.id', 
             description: {
                 id: 'Aplikasi web',
@@ -66,16 +66,14 @@ document.addEventListener('DOMContentLoaded', function () {
         id: [
             { href: '/id/', text: 'Beranda' },
             { href: '/id/articles/', text: 'Artikel' },
-            { href: '/id/resources/', text: 'Bahan Desain' },
-            { href: '/id/media/', text: 'Media' },
-            { href: '/id/donate.html', text: 'Donasi' }
+            { href: 'https://app.dayverse.id/id', text: 'Aplikasi' },
+            { href: '/id/about-us', text: 'Tentang Kami' }
         ],
         en: [
             { href: '/en/', text: 'Home' },
             { href: '/en/articles/', text: 'Articles' },
-            { href: '/en/resources/', text: 'Resources' },
-            { href: '/en/media/', text: 'Media' },
-            { href: '/en/donate.html', text: 'Donate' }
+            { href: 'https://app.dayverse.id/en', text: 'Apps' },
+            { href: '/en/about-us', text: 'About Us' }
         ]
     };
 
@@ -89,10 +87,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 infoTitle: 'Informasi',
                 socialTitle: 'Ikuti kami',
                 navLinks: [
-                    { text: 'Semua Konten', href: '/id/all/' },
                     { text: 'Artikel', href: '/id/articles/' },
-                    { text: 'Bahan Desain', href: '/id/resources/' },
-                    { text: 'Media', href: '/id/media/' },
+                    { text: 'Aplikasi', href: 'https://app.dayverse.id/id' },
+                    { text: 'Nurimator', href: 'https://n.dayverse.id/id' },
+                    { text: 'Urdzien', href: 'https://u.dayverse.id/id' },
                     { text: 'Donasi', href: '/id/donate.html' }
                 ],
                 infoLinks: [
@@ -113,10 +111,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 infoTitle: 'Information',
                 socialTitle: 'Follow us',
                 navLinks: [
-                    { text: 'All Content', href: '/en/all/' },
                     { text: 'Articles', href: '/en/articles/' },
-                    { text: 'Resources', href: '/en/resources/' },
-                    { text: 'Media', href: '/en/media/' },
+                    { text: 'Apps', href: 'https://app.dayverse.id/en' },
+                    { text: 'Nurimator', href: 'https://n.dayverse.id/en' },
+                    { text: 'Urdzien', href: 'https://u.dayverse.id/en' },
                     { text: 'Donate', href: '/en/donate' }
                 ],
                 infoLinks: [
@@ -173,7 +171,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update fungsi untuk membuat item subdomain menu dengan icon home
     const createSubdomainMenuItem = (item, lang) => {
         const a = document.createElement('a');
-        a.href = item.href;
+        // Handle href yang berupa function atau string
+        a.href = typeof item.href === 'function' ? item.href(lang) : item.href;
         a.className = `subdomain-menu-item ${item.colorClass}`;
         
         // Deteksi subdomain aktif berdasarkan warna aksen logo

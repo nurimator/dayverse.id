@@ -6,7 +6,7 @@
     <meta name="description" content="{% if page.description %}{{ page.description | strip_html | strip_newlines }}{% elsif page.excerpt %}{{ page.excerpt | strip_html | strip_newlines }}{% else %}{{ site.description | strip_html | strip_newlines }}{% endif %}">
     <title>{{ page.title }} | {{ site.title | default: "Nurimator" }}</title>
     {% include favicon.html %}
-
+    <link rel="canonical" href="{{ page.url | absolute_url }}" />
     {% assign all_articles = site.articles_id | concat: site.articles_en %}
     {% assign current_page_id = page.page_id %}
     {% assign alternate_posts = all_articles | where: "page_id", current_page_id %}
@@ -232,7 +232,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="mt-6">
-                                    <a href="/id/all/" class="block w-full text-center px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white font-semibold text-sm rounded-lg transition-colors">
+                                    <a href="/id/articles/" class="block w-full text-center px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white font-semibold text-sm rounded-lg transition-colors">
                                         Lihat Semua Postingan
                                     </a>
                                 </div>
@@ -324,7 +324,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="mt-6">
-                                    <a href="/id/all/" class="block w-full text-center px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white font-semibold text-sm rounded-lg transition-colors">
+                                    <a href="/id/articles/" class="block w-full text-center px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white font-semibold text-sm rounded-lg transition-colors">
                                         Lihat Semua Postingan
                                     </a>
                                 </div>
