@@ -23,13 +23,7 @@ collections:
     permalink: /id/articles/:title/
   articles_en:
     output: true
-    permalink: /en/articles/:title/
-  resources_id:
-    output: true
-    permalink: /id/resources/:title/
-  resources_en:
-    output: true
-    permalink: /en/resources/:title/        
+    permalink: /en/articles/:title/     
   legals:
     output: true
     permalink: /:title/  
@@ -81,18 +75,6 @@ defaults:
       author: "Nurhidayat"
       author_role: "Penulis"
       author_bio: "Menulis tentang apa saja yang menurutku menarik."
-      author_avatar: "/assets/image/nurimator-logo-128.webp"
-
-  # Resource Bahasa Inggris
-  - scope:
-      path: ""
-      type: "resources_en"
-    values:
-      lang: "en"
-      type: "Resource"
-      author: "Nurhidayat"
-      author_role: "Author"
-      author_bio: "Writes about anything I find interesting."
       author_avatar: "/assets/image/nurimator-logo-128.webp"
 
 # ========================

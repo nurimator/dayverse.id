@@ -23,9 +23,9 @@ lang: id
             color: #d1d5db; /* text-gray-300 */
         }
 
-        /* Styling for the full-page canvas background */
+        /* Styling for the canvas background (not fixed, only behind main content) */
         #particle-canvas {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
@@ -86,7 +86,7 @@ lang: id
             </section>
 
             <!-- Page 2 / Main Content Section -->
-            <section id="pillars" class="min-h-screen py-20 flex items-center bg-transparent relative">
+                <section id="pillars" class="min-h-screen py-20 flex items-center bg-transparent border-b border-gray-700 relative">
                 <div class="container mx-auto px-6">
                     
                     <!-- Section Title -->

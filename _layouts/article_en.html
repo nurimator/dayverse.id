@@ -73,7 +73,7 @@
         .article-content .download-link {
             display: inline-flex;
             align-items: center;
-            background-color: #0d9488; /* bg-teal-700 */
+            background-color: #f59e42; /* bg-amber-500 */
             color: white !important;
             font-weight: 600; /* font-semibold */
             padding: 0.625rem 1.5rem; /* Smaller padding */
@@ -86,7 +86,7 @@
         }
 
         .article-content .download-link:hover {
-            background-color: #0f766e; /* hover:bg-teal-600 */
+            background-color: #d97706; /* hover:bg-amber-600 */
             color: white !important;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); /* hover:shadow-lg */
         }
@@ -155,17 +155,17 @@
                     <div class="lg:col-span-7 order-1">
                         <article class="bg-transparent lg:bg-[#18212f] lg:border lg:border-gray-700/80 lg:shadow lg:p-8 rounded-2xl">
                             <div class="mb-6">
-                                <p class="text-sm font-semibold text-teal-400 mb-2">{{ page.category }}</p>
+                                <p class="text-sm font-semibold text-amber-400 mb-2">{{ page.category }}</p>
                                 <h1 id="page-top" class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-tight">{{ page.title }}</h1>
                                 <div class="mt-4 flex items-center flex-wrap gap-x-4 gap-y-2 text-sm text-gray-400">
                                     <span>{{ page.date | date: "%d %B %Y" }}</span>
                                     <span class="text-gray-600">•</span>
                                     
-                                    <button id="mobile-toc-open-btn" class="lg:hidden text-teal-400 hover:text-teal-300 transition-colors text-sm">
+                                    <button id="mobile-toc-open-btn" class="lg:hidden text-amber-400 hover:text-amber-300 transition-colors text-sm">
                                         Show Table of Contents
                                     </button>
 
-                                    <button id="desktop-toc-toggle-btn" class="hidden lg:inline-flex text-teal-400 hover:text-teal-300 transition-colors text-sm">
+                                    <button id="desktop-toc-toggle-btn" class="hidden lg:inline-flex text-amber-400 hover:text-amber-300 transition-colors text-sm">
                                         <span id="desktop-toc-toggle-text">Show Table of Contents</span>
                                     </button>
                                 </div>
@@ -184,7 +184,7 @@
                         <div class="hidden md:block lg:hidden mt-8">
                             <div class="bg-[#18212f] rounded-2xl border border-gray-700/80 shadow relative overflow-hidden">
                                 <div class="p-5 flex items-center space-x-4">
-                                    <img src="{{ page.author_avatar | relative_url }}" alt="Profile picture of {{ page.author }}" class="w-16 h-16 rounded-full flex-shrink-0 border-3 border-teal-500/50" onerror="this.onerror=null;this.src='https://placehold.co/150x150/1f2937/FFFFFF?text=AP';">
+                                    <img src="{{ page.author_avatar | relative_url }}" alt="Profile picture of {{ page.author }}" class="w-16 h-16 rounded-full flex-shrink-0 border-3 border-amber-500/50" onerror="this.onerror=null;this.src='https://placehold.co/150x150/1f2937/FFFFFF?text=AP';">
                                     <div class="text-left flex-1">
                                         <h4 class="text-base font-bold text-white">{{ page.author }}</h4>
                                         <p class="text-sm text-gray-400 mt-1">{{ page.author_role }}</p>
@@ -206,8 +206,8 @@
                                         <a href="{{ post.url | relative_url }}" class="flex items-center space-x-4 group">
                                             <img src="{{ post.image | relative_url }}" alt="Image for {{ post.title }}" class="w-20 h-20 rounded-lg object-cover flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/100x100/111827/FFFFFF?text=Image';">
                                             <div class="flex-1">
-                                                <p class="text-sm font-semibold text-white group-hover:text-teal-400 transition-colors line-clamp-2 leading-relaxed">{{ post.title }}</p>
-                                                <p class="text-xs text-teal-400 mt-1">{{ post.category }}</p>
+                                                <p class="text-sm font-semibold text-white group-hover:text-amber-400 transition-colors line-clamp-2 leading-relaxed">{{ post.title }}</p>
+                                                <p class="text-xs text-amber-400 mt-1">{{ post.category }}</p>
                                             </div>
                                         </a>
                                         {% assign count = count | plus: 1 %}
@@ -222,8 +222,8 @@
                                             <a href="{{ post.url | relative_url }}" class="flex items-center space-x-4 group">
                                                 <img src="{{ post.image | relative_url }}" alt="Image for {{ post.title }}" class="w-20 h-20 rounded-lg object-cover flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/100x100/111827/FFFFFF?text=Image';">
                                                 <div class="flex-1">
-                                                    <p class="text-sm font-semibold text-white group-hover:text-teal-400 transition-colors line-clamp-2 leading-relaxed">{{ post.title }}</p>
-                                                    <p class="text-xs text-teal-400 mt-1">{{ post.category }}</p>
+                                                    <p class="text-sm font-semibold text-white group-hover:text-amber-400 transition-colors line-clamp-2 leading-relaxed">{{ post.title }}</p>
+                                                    <p class="text-xs text-amber-400 mt-1">{{ post.category }}</p>
                                                 </div>
                                             </a>
                                             {% assign count = count | plus: 1 %}
@@ -232,7 +232,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="mt-6">
-                                    <a href="/en/all/" class="block w-full text-center px-4 py-2 bg-teal-800/60 hover:bg-teal-800/90 text-white font-semibold text-sm rounded-lg transition-colors">
+                                    <a href="/en/all/" class="block w-full text-center px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white font-semibold text-sm rounded-lg transition-colors">
                                         View All Posts
                                     </a>
                                 </div>
@@ -249,7 +249,7 @@
                                 <!-- Slide 1: Author Info -->
                                 <div id="author-content" class="absolute inset-x-0 top-0 transition-all duration-500 ease-in-out opacity-100 translate-y-0">
                                     <div class="p-5 flex flex-col space-y-4">
-                                        <img src="{{ page.author_avatar | relative_url }}" alt="Profile picture of {{ page.author }}" class="w-20 h-20 rounded-full flex-shrink-0 mx-auto border-3 border-teal-500/50" onerror="this.onerror=null;this.src='https://placehold.co/150x150/1f2937/FFFFFF?text=AP';">
+                                        <img src="{{ page.author_avatar | relative_url }}" alt="Profile picture of {{ page.author }}" class="w-20 h-20 rounded-full flex-shrink-0 mx-auto border-3 border-amber-500/50" onerror="this.onerror=null;this.src='https://placehold.co/150x150/1f2937/FFFFFF?text=AP';">
                                         <div class="text-center flex-1">
                                             <h4 class="text-base font-bold text-white">{{ page.author }}</h4>
                                             <p class="text-sm text-gray-400 mt-1">{{ page.author_role }}</p>
@@ -278,7 +278,7 @@
                             <!-- Mobile Author Card -->
                             <div class="bg-[#18212f] rounded-2xl border border-gray-700/80 shadow">
                                 <div class="p-5 flex items-center space-x-4">
-                                    <img src="{{ page.author_avatar | relative_url }}" alt="Profile picture of {{ page.author }}" class="w-16 h-16 rounded-full flex-shrink-0 border-3 border-teal-500/50" onerror="this.onerror=null;this.src='https://placehold.co/150x150/1f2937/FFFFFF?text=AP';">
+                                    <img src="{{ page.author_avatar | relative_url }}" alt="Profile picture of {{ page.author }}" class="w-16 h-16 rounded-full flex-shrink-0 border-3 border-amber-500/50" onerror="this.onerror=null;this.src='https://placehold.co/150x150/1f2937/FFFFFF?text=AP';">
                                     <div class="text-left flex-1">
                                         <h4 class="text-base font-bold text-white">{{ page.author }}</h4>
                                         <p class="text-sm text-gray-400 mt-1">{{ page.author_role }}</p>
@@ -298,8 +298,8 @@
                                         <a href="{{ post.url | relative_url }}" class="flex items-center space-x-4 group">
                                             <img src="{{ post.image | relative_url }}" alt="Image for {{ post.title }}" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/100x100/111827/FFFFFF?text=Image';">
                                             <div class="flex-1">
-                                                <p class="text-sm font-semibold text-white group-hover:text-teal-400 transition-colors line-clamp-2">{{ post.title }}</p>
-                                                <p class="text-xs text-teal-400 mt-1">{{ post.category }}</p>
+                                                <p class="text-sm font-semibold text-white group-hover:text-amber-400 transition-colors line-clamp-2">{{ post.title }}</p>
+                                                <p class="text-xs text-amber-400 mt-1">{{ post.category }}</p>
                                             </div>
                                         </a>
                                         {% assign mobile_count = mobile_count | plus: 1 %}
@@ -314,8 +314,8 @@
                                             <a href="{{ post.url | relative_url }}" class="flex items-center space-x-4 group">
                                                 <img src="{{ post.image | relative_url }}" alt="Image for {{ post.title }}" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/100x100/111827/FFFFFF?text=Image';">
                                                 <div class="flex-1">
-                                                    <p class="text-sm font-semibold text-white group-hover:text-teal-400 transition-colors line-clamp-2">{{ post.title }}</p>
-                                                    <p class="text-xs text-teal-400 mt-1">{{ post.category }}</p>
+                                                    <p class="text-sm font-semibold text-white group-hover:text-amber-400 transition-colors line-clamp-2">{{ post.title }}</p>
+                                                    <p class="text-xs text-amber-400 mt-1">{{ post.category }}</p>
                                                 </div>
                                             </a>
                                             {% assign mobile_count = mobile_count | plus: 1 %}
@@ -324,7 +324,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="mt-6">
-                                    <a href="/en/all/" class="block w-full text-center px-4 py-2 bg-teal-800/60 hover:bg-teal-800/90 text-white font-semibold text-sm rounded-lg transition-colors">
+                                    <a href="/en/all/" class="block w-full text-center px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white font-semibold text-sm rounded-lg transition-colors">
                                         View All Posts
                                     </a>
                                 </div>

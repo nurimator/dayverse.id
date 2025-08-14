@@ -158,12 +158,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function untuk mendeteksi subdomain berdasarkan warna aksen logo
     const detectCurrentSubdomain = () => {
-        const logo = document.querySelector('#logo-dropdown-button span .text-teal-600, #logo-dropdown-button span .text-amber-600, #logo-dropdown-button span .text-blue-600, #logo-dropdown-button span .text-slate-600');
+        const logo = document.querySelector('#logo-dropdown-button span .text-teal-600, #logo-dropdown-button span .text-amber-400, #logo-dropdown-button span .text-blue-600, #logo-dropdown-button span .text-slate-600');
         
         if (!logo) return 'main'; // default
         
         if (logo.classList.contains('text-teal-600')) return 'nurimator';
-        if (logo.classList.contains('text-amber-600')) return 'main';
+        if (logo.classList.contains('text-amber-400')) return 'main';
         if (logo.classList.contains('text-blue-600')) return 'urdzien';
         if (logo.classList.contains('text-slate-600')) return 'webapp';
         
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const isActive = item.subdomain === currentSubdomain;
         
         if (isActive) {
-            // Gunakan warna Tailwind -700 sebagai background untuk item aktif
+            // Gunakan warna Tailwind -600 sebagai background untuk item aktif
             switch (item.colorClass) {
                 case 'main': 
                     a.style.backgroundColor = '#d97706'; // amber-700
@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     a.style.backgroundColor = '#0f766e'; // teal-700
                     break;
                 case 'webapp': 
-                    a.style.backgroundColor = '#475569'; // slate-700
+                    a.style.backgroundColor = '#334155'; // slate-700
                     break;
                 default: 
                     a.style.backgroundColor = 'rgba(55, 65, 81, 0.5)';
@@ -369,13 +369,13 @@ document.addEventListener('DOMContentLoaded', function () {
         const query = input.value.trim();
         if (!query) return;
         const pageLang = document.documentElement.lang || 'id';
-        window.location.href = `/${pageLang}/all/?q=${encodeURIComponent(query)}`;
+        window.location.href = `/${pageLang}/articles/?q=${encodeURIComponent(query)}`;
     };
     
     const setUiLanguage = () => {
         const pageLang = document.documentElement.lang || 'id';
         const translations = uiStrings[pageLang] || uiStrings.id;
-        const searchActionUrl = `/${pageLang}/all/`;
+        const searchActionUrl = `/${pageLang}/articles/`;
 
         if(desktopSearchInput) desktopSearchInput.placeholder = translations.searchPlaceholder;
         if(mobileSearchInput) mobileSearchInput.placeholder = translations.searchPlaceholder;
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const a = document.createElement('a');
                 a.href = linkData.href;
                 a.textContent = linkData.text;
-                a.className = 'text-gray-400 hover:text-teal-400';
+                a.className = 'text-gray-400 hover:text-amber-400';
                 li.appendChild(a);
                 navLinksContainer.appendChild(li);
             });
@@ -422,7 +422,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const a = document.createElement('a');
                 a.href = linkData.href;
                 a.textContent = linkData.text;
-                a.className = 'text-gray-400 hover:text-teal-400';
+                a.className = 'text-gray-400 hover:text-amber-400';
                 li.appendChild(a);
                 infoLinksContainer.appendChild(li);
             });

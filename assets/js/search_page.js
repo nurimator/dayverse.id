@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // --- Elemen-elemen khusus halaman pencarian ---
   const postsContainer = document.getElementById('posts-container');
   const pageTitle = document.getElementById('page-title');
-  const typeFilterButton = document.getElementById('type-filter-button');
-  const typeFilterMenu = document.getElementById('type-filter-menu');
+  // Type filter removed
   const categoryFilterButton = document.getElementById('category-filter-button');
   const categoryFilterMenu = document.getElementById('category-filter-menu');
   const sortFilterButton = document.getElementById('sort-filter-button');
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- State Management ---
   const allItems = searchableData;
-  let selectedType = pageConfig.preselectedType || 'all';
+  // Type filter removed
   let selectedCategory = 'all';
   let currentSortCriteria = 'date-desc';
   
@@ -179,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const createPageButton = (pageNum) => {
     const button = document.createElement('button');
     button.className = pageNum === currentPage 
-      ? 'px-3 py-2 text-sm font-medium text-white bg-teal-600 border border-teal-600 h-[36px]'
+      ? 'px-3 py-2 text-sm font-medium text-white bg-amber-600 border border-amber-600 h-[36px]'
       : 'px-3 py-2 text-sm font-medium text-gray-400 bg-gray-800 border border-gray-700 hover:bg-gray-700 hover:text-white h-[36px]';
     button.textContent = pageNum;
     button.onclick = () => {
@@ -230,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
         
         optionEl.innerHTML = `
           <div class="w-4 h-4 border border-gray-400 rounded flex items-center justify-center text-xs font-bold ${
-            checkboxState ? 'bg-teal-600 border-teal-600 text-white' : 'bg-transparent'
+            checkboxState ? 'bg-amber-600 border-amber-600 text-white' : 'bg-transparent'
           }">
             ${checkboxState}
           </div>
@@ -286,7 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         // Regular dropdown behavior for non-category menus
         optionEl.className = (option.value === currentSelection) 
-          ? 'block p-3 text-sm text-white bg-teal-600 rounded-lg' 
+          ? 'block p-3 text-sm text-white bg-amber-600 rounded-lg' 
           : 'block p-3 text-sm text-white hover:bg-gray-700 rounded-lg';
         optionEl.textContent = option.label;
         optionEl.dataset.value = option.value;
@@ -305,7 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
   };
 
   const setupDropdowns = () => {
-    const allMenus = [typeFilterMenu, categoryFilterMenu, sortFilterMenu];
+  const allMenus = [categoryFilterMenu, sortFilterMenu];
     const closeAllMenus = () => allMenus.forEach(menu => menu && menu.classList.add('hidden'));
     
     window.addEventListener('click', () => closeAllMenus());
@@ -323,40 +322,13 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     };
 
-    createToggle(typeFilterButton, typeFilterMenu);
+  // Type filter removed
     createToggle(categoryFilterButton, categoryFilterMenu);
     createToggle(sortFilterButton, sortFilterMenu);
   };
 
   const repopulateAllDropdowns = () => {
-    // Dropdown Tipe
-    const typeToUrlMap = { 
-      'all': `/${currentLang}/all/`, 
-      'Artikel': `/${currentLang}/articles/`, 
-      'Bahan': `/${currentLang}/resources/`, 
-      'Media': `/${currentLang}/media/` 
-    };
-    const typeOptions = [ 
-      { value: 'all', label: translations.types.all[currentLang] }, 
-      { value: 'Artikel', label: translations.types.artikel[currentLang] }, 
-      { value: 'Bahan', label: translations.types.bahan[currentLang] }, 
-      { value: 'Media', label: translations.types.media[currentLang] }
-    ];
-    populateCustomDropdown(typeFilterMenu, typeOptions, selectedType, (value) => {
-      const targetPath = typeToUrlMap[value];
-      if (!targetPath) return;
-      
-      const urlParams = new URLSearchParams(window.location.search);
-      const searchQuery = urlParams.get('q');
-      const newParams = new URLSearchParams();
-      if (searchQuery) newParams.set('q', searchQuery);
-      if (!selectedCategories.has('all') && selectedCategories.size > 0) {
-        newParams.set('category', Array.from(selectedCategories).join(','));
-      }
-      
-      const queryString = newParams.toString();
-      window.location.href = targetPath + (queryString ? '?' + queryString : '');
-    });
+  // Type filter removed
 
     // Dropdown Kategori
     const categories = new Set();
@@ -412,7 +384,7 @@ document.addEventListener('DOMContentLoaded', function () {
       : `src="${itemImage}" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-all duration-500 z-10"`;
     
     return `
-      <div class="post-item bg-gray-800 rounded-2xl overflow-hidden h-full shadow-lg transition-all duration-300 border border-gray-700/80 hover:border-teal-500/50 hover:-translate-y-1 hover:shadow-teal-500/20">
+      <div class="post-item bg-gray-800 rounded-2xl overflow-hidden h-full shadow-lg transition-all duration-300 border border-gray-700/80 hover:border-amber-500/50 hover:-translate-y-1 hover:shadow-amber-500/20">
         <a href="${itemUrl}" class="block group h-full flex flex-col">
           <div class="relative flex-shrink-0 h-48 bg-gray-900">
             <div class="absolute inset-0 shimmer"></div>
@@ -421,11 +393,11 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
           <div class="p-5 flex flex-col flex-grow">
             <div class="flex items-center space-x-2">
-              <span class="text-xs font-semibold text-cyan-400">${itemType.toUpperCase()}</span>
+              <span class="text-xs font-semibold text-orange-400">${itemType.toUpperCase()}</span>
               <span class="text-gray-500">&bull;</span>
-              <span class="text-xs font-semibold text-teal-400">${itemCategory}</span>
+              <span class="text-xs font-semibold text-amber-400">${itemCategory}</span>
             </div>
-            <h3 class="mt-2 text-lg font-bold text-white transition-colors group-hover:text-teal-400 line-clamp-2 flex-grow">${itemTitle}</h3>
+            <h3 class="mt-2 text-lg font-bold text-white transition-colors group-hover:text-amber-400 line-clamp-2 flex-grow">${itemTitle}</h3>
             <p class="mt-2 text-gray-400 text-sm line-clamp-2">${itemExcerpt}</p>
           </div>
         </a>
@@ -463,15 +435,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const searchQuery = (urlParams.get('q') || '').toLowerCase().trim();
     
     let filteredItems = allItems.filter(item => {
-      if (selectedType !== 'all' && item.type !== selectedType) return false;
-      
-      // Update filter logic untuk multiple categories
+      // Only filter by category and search query
       if (!selectedCategories.has('all')) {
         if (!Array.isArray(item.categories)) return false;
         const hasMatchingCategory = item.categories.some(cat => selectedCategories.has(cat));
         if (!hasMatchingCategory) return false;
       }
-      
       if (searchQuery) {
         const title = (item.title || '').toLowerCase();
         const content = (item.content || '').replace(/```[\s\S]*?```/g, '').toLowerCase();
@@ -522,7 +491,7 @@ document.addEventListener('DOMContentLoaded', function () {
       const newPath = window.location.pathname.replace(`/${currentLang}/`, `/${otherLang}/`);
       const alternateUrl = newPath + window.location.search;
       
-      const areFiltersActive = selectedType !== 'all' || !selectedCategories.has('all');
+  const areFiltersActive = !selectedCategories.has('all');
       
       let clearFilterHTML = '';
       if (areFiltersActive) {
@@ -530,7 +499,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const clearFilterUrl = searchQuery ? `${clearFilterBasePath}?q=${encodeURIComponent(searchQuery)}` : clearFilterBasePath;
         clearFilterHTML = `
           <p class="text-sm text-gray-400">
-            ${translations.noResults.try[currentLang]} <a href="${clearFilterUrl}" class="text-teal-400 hover:underline font-medium">${translations.noResults.clearFilterLink[currentLang]}</a>.
+            ${translations.noResults.try[currentLang]} <a href="${clearFilterUrl}" class="text-amber-400 hover:underline font-medium">${translations.noResults.clearFilterLink[currentLang]}</a>.
           </p>
         `;
       }
@@ -539,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (searchQuery) {
         searchOtherLangHTML = `
           <p class="text-sm text-gray-400">
-            ${translations.noResults.searchInSuggestion[currentLang]} <a href="${alternateUrl}" class="text-teal-400 hover:underline font-medium">${otherLangName}</a>.
+            ${translations.noResults.searchInSuggestion[currentLang]} <a href="${alternateUrl}" class="text-amber-400 hover:underline font-medium">${otherLangName}</a>.
           </p>
         `;
       }
