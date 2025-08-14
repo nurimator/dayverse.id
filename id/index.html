@@ -7,7 +7,11 @@ lang: id
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dayverse.id | Didorong oleh Rasa Ingin Tahu</title>
+    <title>dayverse.id</title>
+    <link rel="canonical" href="https://dayverse.id/id" />
+    <link rel="alternate" href="https://dayverse.id/en" hreflang="en" />
+    <link rel="alternate" href="https://dayverse.id/id" hreflang="id" />
+    <link rel="alternate" href="https://dayverse.id/en" hreflang="x-default" />
     <!-- Import Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Import Google Fonts: Inter -->
@@ -25,7 +29,7 @@ lang: id
 
         /* Styling for the canvas background (not fixed, only behind main content) */
         #particle-canvas {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -37,6 +41,19 @@ lang: id
         main {
             position: relative;
             z-index: 1;
+        }
+
+        /* Footer must be above the canvas particles */
+        footer {
+            position: relative;
+            z-index: 2;
+            background-color: #111827 !important; /* Ensure solid background - same as body bg */
+        }
+
+        /* Ensure footer content is visible above particles */
+        #page-footer {
+            position: relative;
+            z-index: 3;
         }
     </style>
     <script>
@@ -79,14 +96,14 @@ lang: id
                         Dengan rasa ingin tahu sebagai landasan, Membuka ruang cipta keberagaman.
                     </p>
                      <!-- CTA Button -->
-                    <a href="#pillars" class="mt-8 inline-block px-8 py-3 bg-amber-400 text-gray-900 font-bold rounded-lg hover:bg-amber-500 transition-colors duration-300">
+                    <a href="#Spaces" class="mt-8 inline-block px-8 py-3 bg-amber-400 text-gray-900 font-bold rounded-lg hover:bg-amber-500 transition-colors duration-300">
                         Jelajahi
                     </a>
                 </div>
             </section>
 
             <!-- Page 2 / Main Content Section -->
-                <section id="pillars" class="min-h-screen py-20 flex items-center bg-transparent border-b border-gray-700 relative">
+                <section id="Spaces" class="min-h-screen py-20 flex items-center bg-transparent border-b border-gray-700/50 relative">
                 <div class="container mx-auto px-6">
                     
                     <!-- Section Title -->
@@ -96,40 +113,40 @@ lang: id
                         </h2>
                     </div>
 
-                    <!-- Grid for Pillar Cards -->
+                    <!-- Grid for Space Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 items-start">
                         
-                        <!-- Pillar Card 1: Nurimator (First on mobile) -->
+                        <!-- Space Card 1: Nurimator (First on mobile) -->
                         <div class="bg-gray-800/50 backdrop-blur-lg p-4 md:p-8 rounded-xl flex flex-row items-center text-left md:flex-col md:text-center h-full transform hover:-translate-y-2 transition-all duration-300 border-2 border-teal-400/20 hover:border-teal-400 hover:shadow-[0_0_25px_-5px] hover:shadow-teal-400/30">
                             <img src="https://placehold.co/128x128/0f766e/5eead4?text=N" alt="Nurimator Icon" class="w-16 h-16 md:w-32 md:h-32 rounded-full object-cover border-4 border-gray-700 mr-4 md:mr-0 md:mb-6 flex-shrink-0">
                             <div class="flex-grow flex flex-col">
                                 <h3 class="text-xl md:text-2xl font-bold text-teal-400 mb-1 md:mb-3">Nurimator</h3>
                                 <p class="text-gray-400 text-xs md:text-base">Sebuah studio kreatif untuk mengubah konsep menjadi karya visual.</p>
-                                <a href="#" class="mt-3 md:mt-6 max-w-[400px] md:mx-auto inline-block w-full sm:w-auto text-white bg-teal-700 hover:bg-teal-600 focus:ring-4 focus:ring-teal-300 font-bold rounded-lg text-sm md:text-base px-6 py-2 md:px-8 md:py-3 transition-all duration-300">
+                                <a href="#" class="mt-3 md:mt-6 max-w-[400px] md:mx-auto inline-block w-full sm:w-auto text-white bg-teal-700 hover:bg-teal-600 font-bold rounded-lg text-sm md:text-base px-6 py-2 md:px-8 md:py-3 transition-all duration-300">
                                     Kunjungi Nurimator
                                 </a>
                             </div>
                         </div>
 
-                        <!-- Pillar Card 2: Urdzien (Second on mobile) -->
+                        <!-- Space Card 2: Urdzien (Second on mobile) -->
                         <div class="bg-gray-800/50 backdrop-blur-lg p-4 md:p-8 rounded-xl flex flex-row items-center text-left md:flex-col md:text-center h-full transform hover:-translate-y-2 transition-all duration-300 border-2 border-blue-400/20 hover:border-blue-400 hover:shadow-[0_0_25px_-5px] hover:shadow-blue-400/30">
                             <img src="https://placehold.co/128x128/1e40af/93c5fd?text=U" alt="Urdzien Icon" class="w-16 h-16 md:w-32 md:h-32 rounded-full object-cover border-4 border-gray-700 mr-4 md:mr-0 md:mb-6 flex-shrink-0">
                             <div class="flex-grow flex flex-col">
                                 <h3 class="text-xl md:text-2xl font-bold text-blue-400 mb-1 md:mb-3">Urdzien</h3>
-                                <p class="text-gray-400 text-xs md:text-base">Sebuah pilar untuk studi ilmiah dan filosofis untuk merangsang pemikiran.</p>
-                                <a href="#" class="mt-3 md:mt-6 max-w-[400px] md:mx-auto inline-block w-full sm:w-auto text-white bg-blue-800 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-bold rounded-lg text-sm md:text-base px-6 py-2 md:px-8 md:py-3 transition-all duration-300">
-                                    Jelajahi Urdzien
+                                <p class="text-gray-400 text-xs md:text-base">Sebuah ruang untuk studi ilmiah dan filosofis untuk merangsang pemikiran.</p>
+                                <a href="#" class="mt-3 md:mt-6 max-w-[400px] md:mx-auto inline-block w-full sm:w-auto text-white bg-blue-800 hover:bg-blue-600 font-bold rounded-lg text-sm md:text-base px-6 py-2 md:px-8 md:py-3 transition-all duration-300">
+                                    Kunjungi Urdzien
                                 </a>
                             </div>
                         </div>
                         
-                        <!-- Pillar Card 3: Technology (Third on mobile) -->
+                        <!-- Space Card 3: Technology (Third on mobile) -->
                         <div class="bg-gray-800/50 backdrop-blur-lg p-4 md:p-8 rounded-xl flex flex-row items-center text-left md:flex-col md:text-center h-full transform hover:-translate-y-2 transition-all duration-300 border-2 border-slate-400/20 hover:border-slate-400 hover:shadow-[0_0_25px_-5px] hover:shadow-slate-400/30">
                              <img src="https://placehold.co/128x128/334155/cbd5e1?text=T" alt="Technology Icon" class="w-16 h-16 md:w-32 md:h-32 rounded-full object-cover border-4 border-gray-700 mr-4 md:mr-0 md:mb-6 flex-shrink-0">
                              <div class="flex-grow flex flex-col">
                                 <h3 class="text-xl md:text-2xl font-bold text-slate-400 mb-1 md:mb-3">Teknologi & Aplikasi</h3>
                                 <p class="text-gray-400 text-xs md:text-base">Fokus pada pembuatan aplikasi web dan solusi praktis.</p>
-                                <a href="#" class="mt-3 md:mt-6 max-w-[400px] md:mx-auto inline-block w-full sm:w-auto text-white bg-slate-700 hover:bg-slate-600 focus:ring-4 focus:ring-slate-300 font-bold rounded-lg text-sm md:text-base px-6 py-2 md:px-8 md:py-3 transition-all duration-300">
+                                <a href="#" class="mt-3 md:mt-6 max-w-[400px] md:mx-auto inline-block w-full sm:w-auto text-white bg-slate-700 hover:bg-slate-600 font-bold rounded-lg text-sm md:text-base px-6 py-2 md:px-8 md:py-3 transition-all duration-300">
                                     Lihat Aplikasi
                                 </a>
                             </div>

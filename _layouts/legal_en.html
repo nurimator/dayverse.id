@@ -8,7 +8,7 @@
     <!-- Judul Halaman Dinamis untuk SEO yang lebih baik -->
     <title>{{ page.title }} | {{ site.title | default: "Nurimator" }}</title>
     {% include favicon.html %}
-
+    <link rel="canonical" href="{{ page.url | absolute_url }}" />
     {% assign current_page_id = page.page_id %}
     {% assign alternate_posts = site.legals | where: "page_id", current_page_id %}
 
@@ -22,8 +22,6 @@
     {%- endif -%}
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-
-     
     <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
