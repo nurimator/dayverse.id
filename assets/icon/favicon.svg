@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1080"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #1a1a1a;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #ffce00;
+      }
+    </style>
+  </defs>
+  <g id="SvgjsG1007" data-name="Layer 2">
+    <g id="SvgjsG1006" data-name="Layer 1">
+      <rect class="cls-1" width="1080" height="1080" rx="256"></rect>
+      <path class="cls-2" d="M1018.9077,403.828v0a30.69308,30.69308,0,0,1-30.69308,30.69309H791.86106l-66.70967,148.699H930.04686v0a30.69309,30.69309,0,0,1-30.69309,30.69308H672.50755l3.497-7.8403,8.73131-19.55628L764.86531,407.1245l1.48122-3.29653Z"></path>
+      <path class="cls-2" d="M409.11025,613.91324H182.264a30.69308,30.69308,0,0,1-30.69309-30.69308v0H356.46641l-66.70967-148.699H93.40318A30.69308,30.69308,0,0,1,62.71009,403.828v0H315.27127l1.48122,3.29653L396.882,586.51666l8.73131,19.55628Z"></path>
+      <polygon class="cls-3" points="672.508 613.913 541.037 908.271 409.11 613.913 672.508 613.913"></polygon>
+      <path class="cls-3" d="M664.02814,390.42971c0,77.16729-53.12036,130.27936-124.1269,130.27936S415.77435,467.597,415.77435,390.42971c0-77.1591,53.12036-129.71633,124.12689-129.71633S664.02814,313.27061,664.02814,390.42971Z"></path>
+    </g>
+  </g>
+</svg><style>@media (prefers-color-scheme: light) { :root { filter: none; } }
+@media (prefers-color-scheme: dark) { :root { filter: none; } }
+</style></svg>
